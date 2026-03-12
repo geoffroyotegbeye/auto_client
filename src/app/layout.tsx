@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import ConditionalLayout from '@/components/ConditionalLayout';
 import { ConfigProvider } from '@/contexts/ConfigContext';
 import ReviewButton from '@/components/ReviewButton';
-import '../styles/tailwind.css';
+import './globals.css';
 
 export const viewport: Viewport = {
   width: 'device-width',
