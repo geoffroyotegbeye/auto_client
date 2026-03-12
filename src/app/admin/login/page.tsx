@@ -62,7 +62,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="search-input w-full rounded-lg px-4 py-3"
-                placeholder="admin@vehiclemarket.com"
+                placeholder="admin@migmotors.com"
               />
             </div>
 
@@ -108,12 +108,6 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
-            <p className="text-xs text-gray-500 dark:text-gray-500 text-center">
-              Compte de test : admin@vehiclemarket.com / Admin123!
-            </p>
-          </div>
         </div>
 
         {/* Retour */}
