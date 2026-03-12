@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppIcon from './AppIcon';
 import AppImage from './AppImage';
 
@@ -14,13 +14,33 @@ interface AppLogoProps {
 }
 
 function AppLogo({
-  src = '/assets/images/app_logo.png',
+  src = '/assets/image/app_logo.png',
   text,
   iconName = 'SparklesIcon',
   size = 64,
   className = '',
   onClick,
 }: AppLogoProps) {
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Détecte le thème initial
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+
+    // Observer les changements de thème
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className={`flex items-center gap-2 ${onClick ? 'cursor-pointer hover:opacity-80' : ''} ${className}`}
@@ -28,7 +48,13 @@ function AppLogo({
     >
       {/* Show image if src provided, otherwise show icon */}
       {src ? (
-        <AppImage src={src} alt="Logo" width={size} height={size} className="flex-shrink-0" />
+        <AppImage 
+          src={src} 
+          alt="Logo" 
+          width={size} 
+          height={size} 
+          className={`flex-shrink-0 transition-all ${isDark ? 'brightness-100' : 'brightness-90'}`}
+        />
       ) : (
         <AppIcon name={iconName} size={size} className="flex-shrink-0" />
       )}

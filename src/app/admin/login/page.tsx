@@ -34,8 +34,8 @@ export default function LoginPage() {
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <AppLogo size={48} iconName="TruckIcon" text="VehicleMarket" />
+          <div className="flex justify-center mb-6">
+            <AppLogo size={80} />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Espace Administrateur</h1>
           <p className="text-gray-600 dark:text-gray-400 text-sm">Connectez-vous pour accéder au dashboard</p>
