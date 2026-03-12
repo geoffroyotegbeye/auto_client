@@ -131,13 +131,20 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <ThemeToggle />
           
-          <Link href="/products" className="hidden lg:flex btn-primary text-[11px] py-2 px-6 rounded-full">
-            <Icon name="MagnifyingGlassIcon" size={14} /> Rechercher
+          {/* Bouton recherche - Desktop: avec texte, Mobile: icône seulement */}
+          <Link 
+            href="/products" 
+            className="btn-primary text-[11px] py-2 rounded-full lg:px-6 px-2.5"
+            aria-label="Rechercher"
+          >
+            <Icon name="MagnifyingGlassIcon" size={14} />
+            <span className="hidden lg:inline">Rechercher</span>
           </Link>
           
           <button
             className="lg:hidden p-2 text-gray-600 dark:text-[#A09A8E] hover:text-gray-900 dark:hover:text-[#F5F0E8] transition-colors z-[60]"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menu"
           >
             <Icon name={mobileOpen ? "XMarkIcon" : "Bars3Icon"} size={28} />
           </button>
