@@ -12,6 +12,20 @@ const nextConfig = {
   },
   images: {
     remotePatterns: imageHosts,
+    unoptimized: true, // Désactive l'optimisation pour éviter les problèmes avec les images externes
+  },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [];

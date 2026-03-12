@@ -9,6 +9,15 @@ export const imageHosts = [
         port: '5000',
     },
     {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '5001',
+    },
+    {
+        protocol: 'https',
+        hostname: 'autoserver-production.up.railway.app',
+    },
+    {
         protocol: 'https',
         hostname: 'images.unsplash.com',
     },
