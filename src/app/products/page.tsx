@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ProductsInteractive from "./components/ProductsInteractive";
+import Icon from "@/components/ui/AppIcon";
 
 export const metadata: Metadata = {
   title: "Catalogue véhicules neufs — Mig Motors",
   description:
     "Parcourez notre catalogue de plus de 12 000 véhicules neufs toutes marques. Filtrez par marque, budget, carburant et plus encore.",
 };
+
+function ProductsLoading() {
+  return (
+    <div className="flex items-center justify-center py-32">
+      <Icon name="ArrowPathIcon" size={48} className="text-vm-red animate-spin" />
+    </div>
+  );
+}
 
 export default function ProductsPage() {
   return (
@@ -26,7 +36,9 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      <ProductsInteractive />
+      <Suspense fallback={<ProductsLoading />}>
+        <ProductsInteractive />
+      </Suspense>
     </main>
   );
 }
