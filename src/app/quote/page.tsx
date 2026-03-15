@@ -23,10 +23,40 @@ export default function QuotePage() {
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFieldErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9+\s()-]/g, "");
+    setFormData({ ...formData, phone: value });
+    setFieldErrors((prev) => ({ ...prev, phone: "" }));
+  };
+
+  const validate = () => {
+    const errors: Record<string, string> = {};
+    if (!formData.firstName.trim() || formData.firstName.trim().length < 2)
+      errors.firstName = "Le prénom doit contenir au moins 2 caractères.";
+    if (!formData.lastName.trim() || formData.lastName.trim().length < 2)
+      errors.lastName = "Le nom doit contenir au moins 2 caractères.";
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      errors.email = "Adresse email invalide.";
+    if (formData.phone && !/^[+0-9][\d\s()\-]{6,19}$/.test(formData.phone))
+      errors.phone = "Numéro de téléphone invalide (chiffres uniquement).";
+    if (!formData.message.trim() || formData.message.trim().length < 10)
+      errors.message = "La demande doit contenir au moins 10 caractères.";
+    return errors;
+  };
+
+  const inputClass = (field: string) =>
+    `w-full px-4 py-3 bg-white dark:bg-vm-dark border rounded-lg text-gray-900 dark:text-white focus:outline-none transition-colors ${
+      fieldErrors[field]
+        ? "border-red-400 dark:border-red-500"
+        : "border-gray-200 dark:border-gray-800 focus:border-amber-600"
+    }`;
 
   const handleServiceToggle = (service: string) => {
     const services = formData.services.includes(service)
@@ -37,6 +67,11 @@ export default function QuotePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
     setLoading(true);
     setError("");
 
@@ -154,10 +189,10 @@ export default function QuotePage() {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-amber-600 transition-colors"
+                  className={inputClass("firstName")}
                   placeholder="Votre prénom"
                 />
+                {fieldErrors.firstName && <p className="mt-1 text-xs text-red-500">{fieldErrors.firstName}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
@@ -168,10 +203,10 @@ export default function QuotePage() {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-amber-600 transition-colors"
+                  className={inputClass("lastName")}
                   placeholder="Votre nom"
                 />
+                {fieldErrors.lastName && <p className="mt-1 text-xs text-red-500">{fieldErrors.lastName}</p>}
               </div>
             </div>
 
@@ -186,10 +221,10 @@ export default function QuotePage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-amber-600 transition-colors"
+                  className={inputClass("email")}
                   placeholder="votre@email.com"
                 />
+                {fieldErrors.email && <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
@@ -199,10 +234,11 @@ export default function QuotePage() {
                   type="tel"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-amber-600 transition-colors"
+                  onChange={handlePhoneChange}
+                  className={inputClass("phone")}
                   placeholder="+229 XX XX XX XX"
                 />
+                {fieldErrors.phone && <p className="mt-1 text-xs text-red-500">{fieldErrors.phone}</p>}
               </div>
             </div>
 
@@ -322,11 +358,11 @@ export default function QuotePage() {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                required
                 rows={6}
-                className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-amber-600 transition-colors resize-none"
+                className={inputClass("message") + " resize-none"}
                 placeholder="Précisez votre besoin : localisation, délais..."
               />
+              {fieldErrors.message && <p className="mt-1 text-xs text-red-500">{fieldErrors.message}</p>}
             </div>
 
             {/* Note */}

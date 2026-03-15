@@ -155,7 +155,7 @@ export default function HeroSection() {
                 <select 
                   value={searchBrand}
                   onChange={(e) => setSearchBrand(e.target.value)}
-                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-vm-red transition-colors"
+                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-gray-400 transition-colors"
                 >
                   <option value="">Marque</option>
                   {brands.slice(0, 10).map((brand) => (
@@ -165,7 +165,7 @@ export default function HeroSection() {
                 <select 
                   value={searchBudget}
                   onChange={(e) => setSearchBudget(e.target.value)}
-                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-vm-red transition-colors"
+                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-gray-400 transition-colors"
                 >
                   <option value="">Budget max</option>
                   <option value="5000000">5 000 000 FCFA</option>
@@ -178,7 +178,7 @@ export default function HeroSection() {
                 <select 
                   value={searchFuel}
                   onChange={(e) => setSearchFuel(e.target.value)}
-                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-vm-red transition-colors"
+                  className="bg-white border border-gray-200 text-gray-900 rounded-lg px-4 py-3 text-sm w-full outline-none focus:border-gray-400 transition-colors"
                 >
                   <option value="">Carburant</option>
                   <option value="Essence">Essence</option>
@@ -189,7 +189,7 @@ export default function HeroSection() {
               </div>
               <button 
                 onClick={handleSearch}
-                className="btn-primary w-full justify-center rounded-lg"
+                className="w-full justify-center rounded-lg flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-[13px] uppercase tracking-[0.08em] px-6 py-3.5 hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors"
               >
                 <Icon name="MagnifyingGlassIcon" size={16} />
                 Rechercher
@@ -249,13 +249,13 @@ export default function HeroSection() {
                         {settings.card_title}
                       </p>
                       <p className="font-display text-xl font-bold mt-1 text-gray-900 dark:text-white">{settings.card_subtitle}</p>
-                      <p className="text-vm-red font-bold text-lg">{settings.card_price}</p>
+                      <p className="text-gray-900 dark:text-white font-bold text-lg">{settings.card_price}</p>
                     </div>
                     <Link
                       href="/products"
-                      className="w-12 h-12 rounded-full bg-vm-red flex items-center justify-center flex-shrink-0 hover:bg-vm-red-light transition-colors shadow-lg">
+                      className="w-12 h-12 rounded-full bg-gray-900 dark:bg-white flex items-center justify-center flex-shrink-0 hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors shadow-lg">
                       
-                      <Icon name="ArrowRightIcon" size={18} className="text-white" />
+                      <Icon name="ArrowRightIcon" size={18} className="text-white dark:text-gray-900" />
                     </Link>
                   </div>
                 </div>

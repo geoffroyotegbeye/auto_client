@@ -216,7 +216,7 @@ body {
 /* ─── BUTTONS ─── */
 .btn-primary {
   background: var(--accent);
-  color: #0D0D0D;
+  color: #ffffff;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 13px;
@@ -238,25 +238,27 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--text-primary);
+  color: var(--accent);
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 13px 32px;
-  border: 1px solid var(--border-hover);
+  border: 1.5px solid var(--accent);
   cursor: pointer;
-  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
 .btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
+  background: linear-gradient(135deg, #b8860b 0%, #c8390d 60%, #f82200 100%);
+  border-color: transparent;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
 }
 
 /* ─── SEARCH BAR ─── */
@@ -350,7 +352,7 @@ body {
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--accent);
+  color: var(--text-primary);
 }
 
 /* ─── SCROLL ANIMATIONS ─── */
@@ -388,12 +390,12 @@ body {
 
 .badge-accent {
   background: var(--accent);
-  color: #0D0D0D;
+  color: #ffffff;
 }
 
 .badge-outline {
-  border: 1px solid var(--border-hover);
-  color: var(--text-secondary);
+  border: 1px solid var(--accent);
+  color: var(--accent);
 }
 
 .badge-new {
@@ -408,7 +410,7 @@ body {
 
 .badge-accent {
   background: #f82200;
-  color: white;
+  color: #ffffff;
 }
 
 /* ─── DIVIDER ─── */

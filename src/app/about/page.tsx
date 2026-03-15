@@ -77,8 +77,8 @@ export default function AboutPage() {
           <div className="space-y-6">
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center">
-                  <Icon name="BuildingOfficeIcon" size={24} className="text-vm-red" />
+                <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <Icon name="BuildingOfficeIcon" size={24} className="text-gray-700 dark:text-gray-300" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Notre Histoire</h2>
@@ -87,7 +87,7 @@ export default function AboutPage() {
               </div>
               <div className="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
                 <p>
-                  <strong className="text-gray-900 dark:text-white">MIG MOTORS BENIN</strong> a été créée le <strong className="text-vm-red">25 Novembre 2013</strong> avec un capital social de <strong className="text-vm-red">100.000.000 FCFA</strong>. Elle est située à la zone résidentielle Zongo, Ilots 572.
+                  <strong className="text-gray-900 dark:text-white">MIG MOTORS BENIN</strong> a été créée le <strong className="text-gray-900 dark:text-white">25 Novembre 2013</strong> avec un capital social de <strong className="text-gray-900 dark:text-white">100.000.000 FCFA</strong>. Elle est située à la zone résidentielle Zongo, Ilots 572.
                 </p>
                 <p>
                   L'arrivée au Bénin de <strong className="text-gray-900 dark:text-white">KIA</strong>, constructeur automobile sud-coréen, est la concrétisation d'un rêve majeur de la population qui consiste en l'achat de véhicules neufs et résistants à moindre coût.
@@ -100,8 +100,8 @@ export default function AboutPage() {
 
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center">
-                  <Icon name="GlobeAltIcon" size={24} className="text-vm-red" />
+                <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <Icon name="GlobeAltIcon" size={24} className="text-gray-700 dark:text-gray-300" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Présence Africaine</h2>
               </div>
@@ -125,20 +125,20 @@ export default function AboutPage() {
           <div className="space-y-6">
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center">
-                  <Icon name="StarIcon" size={24} className="text-vm-red" />
+                <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <Icon name="StarIcon" size={24} className="text-gray-700 dark:text-gray-300" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Notre Engagement</h2>
               </div>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                Dans le but de satisfaire les besoins tant exprimés en matière de véhicules, de pièces de rechange et d'un service après-vente, <strong className="text-gray-900 dark:text-white">MIG MOTORS s'engage chaque jour</strong> grâce à une équipe compétente, soudée et qualifiée aux côtés de ses clients en visant le <strong className="text-vm-red">respect et la satisfaction</strong>.
+                Dans le but de satisfaire les besoins tant exprimés en matière de véhicules, de pièces de rechange et d'un service après-vente, <strong className="text-gray-900 dark:text-white">MIG MOTORS s'engage chaque jour</strong> grâce à une équipe compétente, soudée et qualifiée aux côtés de ses clients en visant le <strong className="text-gray-900 dark:text-white">respect et la satisfaction</strong>.
               </p>
             </div>
 
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center">
-                  <Icon name="TruckIcon" size={24} className="text-vm-red" />
+                <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <Icon name="TruckIcon" size={24} className="text-gray-700 dark:text-gray-300" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Nos Marques</h2>
               </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-vm-red to-red-600 rounded-2xl p-8 shadow-lg text-white">
+            <div className="bg-gray-900 dark:bg-vm-dark-card rounded-2xl p-8 shadow-lg text-white">
               <div className="flex items-center gap-3 mb-4">
                 <Icon name="WrenchScrewdriverIcon" size={32} />
                 <h2 className="text-2xl font-bold">Service Après-Vente</h2>
@@ -176,7 +176,7 @@ export default function AboutPage() {
         {/* Pourquoi nous choisir */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-vm-red mb-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500 dark:text-gray-400 mb-4">
               Nos Valeurs
             </p>
             <h2 className="section-title text-gray-900 dark:text-white">
@@ -188,10 +188,10 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-vm-red transition-all shadow-sm hover:shadow-lg group"
+                className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-gray-400 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-lg group"
               >
-                <div className="w-14 h-14 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center mb-4 group-hover:bg-red-100 dark:group-hover:bg-red-950/30 transition-colors">
-                  <Icon name={value.icon as any} size={28} className="text-vm-red" />
+                <div className="w-14 h-14 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+                  <Icon name={value.icon as any} size={28} className="text-gray-700 dark:text-gray-300" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                   {value.title}

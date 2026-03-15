@@ -37,26 +37,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Dark mode (par défaut) - Couleurs douces */
-  --bg-primary: #1a1a1f;
-  --bg-secondary: #25252b;
-  --bg-card: #2f2f37;
-  --bg-elevated: #2f2f37;
-  --text-primary: #ffffff;
-  --text-secondary: #b4b6bb;
-  --text-muted: #8a8c92;
-  --accent: #f82200;
-  --accent-light: #ff4d2e;
-  --accent-dark: #d11d00;
-  --accent-dim: rgba(248, 34, 0, 0.15);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.15);
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-}
-
-/* Light mode - Textes qui ressortent bien */
-.light {
+  /* Light mode (par défaut) */
   --bg-primary: #ffffff;
   --bg-secondary: #f8f9fa;
   --bg-card: #ffffff;
@@ -70,6 +51,25 @@
   --accent-dim: rgba(248, 34, 0, 0.08);
   --border: #e9ecef;
   --border-hover: #dee2e6;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+/* Dark mode */
+.dark {
+  --bg-primary: #1a1a1f;
+  --bg-secondary: #25252b;
+  --bg-card: #2f2f37;
+  --bg-elevated: #2f2f37;
+  --text-primary: #ffffff;
+  --text-secondary: #b4b6bb;
+  --text-muted: #8a8c92;
+  --accent: #f82200;
+  --accent-light: #ff4d2e;
+  --accent-dark: #d11d00;
+  --accent-dim: rgba(248, 34, 0, 0.15);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
 }
 
 * {
@@ -216,7 +216,7 @@ body {
 /* ─── BUTTONS ─── */
 .btn-primary {
   background: var(--accent);
-  color: #0D0D0D;
+  color: #ffffff;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 13px;
@@ -238,25 +238,27 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: var(--text-primary);
+  color: var(--accent);
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 13px 32px;
-  border: 1px solid var(--border-hover);
+  border: 1.5px solid var(--accent);
   cursor: pointer;
-  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
 .btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-dim);
+  background: linear-gradient(135deg, #b8860b 0%, #c8390d 60%, #f82200 100%);
+  border-color: transparent;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 134, 11, 0.4);
 }
 
 /* ─── SEARCH BAR ─── */
@@ -350,7 +352,7 @@ body {
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: var(--accent);
+  color: var(--text-primary);
 }
 
 /* ─── SCROLL ANIMATIONS ─── */
@@ -387,23 +389,27 @@ body {
 }
 
 .badge-accent {
-  background: var(--accent);
-  color: #0D0D0D;
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  color: var(--text-primary);
 }
 
 .badge-outline {
+  background: transparent;
   border: 1px solid var(--border-hover);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .badge-new {
-  background: #10b981;
-  color: white;
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  color: var(--text-primary);
 }
 
 .badge-promo {
-  background: #f82200;
-  color: white;
+  background: transparent;
+  border: 1px solid var(--border-hover);
+  color: var(--text-primary);
 }
 
 /* ─── DIVIDER ─── */

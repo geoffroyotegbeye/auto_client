@@ -67,12 +67,12 @@ function StatCard({ stat, triggered }: { stat: Stat; triggered: boolean }) {
   const display = stat.value >= 1000 ? `${(count / 1000).toFixed(1)}K` : count.toString();
 
   return (
-    <div className="p-8 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-vm-dark-card rounded-2xl hover:border-vm-red transition-all group shadow-sm hover:shadow-lg">
+    <div className="p-8 border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-vm-dark-card rounded-2xl hover:border-gray-400 dark:hover:border-gray-600 transition-all group shadow-sm hover:shadow-lg">
       <div className="flex items-start justify-between mb-6">
-        <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center group-hover:bg-red-100 dark:group-hover:bg-red-950/30 transition-colors">
-          <Icon name={stat.icon as Parameters<typeof Icon>[0]["name"]} size={22} className="text-vm-red" />
+        <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+          <Icon name={stat.icon as Parameters<typeof Icon>[0]["name"]} size={22} className="text-gray-700 dark:text-gray-300" />
         </div>
-        <span className="badge badge-outline">{stat.label}</span>
+        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 px-2.5 py-1 rounded">{stat.label}</span>
       </div>
       <div className="stat-number">
         {stat.value >= 1000 ? display : count}
@@ -125,7 +125,7 @@ export default function StatsSection() {
                 "Service après-vente avec pièces d'origine",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3 text-[13px] text-gray-600 dark:text-gray-400">
-                  <Icon name="CheckCircleIcon" size={16} variant="solid" className="text-vm-red flex-shrink-0" />
+                  <Icon name="CheckCircleIcon" size={16} variant="solid" className="text-gray-700 dark:text-gray-300 flex-shrink-0" />
                   {item}
                 </div>
               ))}

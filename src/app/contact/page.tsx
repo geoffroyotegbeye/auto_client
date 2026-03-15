@@ -15,16 +15,43 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFieldErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9+\s()-]/g, "");
+    setFormData({ ...formData, phone: value });
+    setFieldErrors((prev) => ({ ...prev, phone: "" }));
+  };
+
+  const validate = () => {
+    const errors: Record<string, string> = {};
+    if (!formData.name.trim() || formData.name.trim().length < 2)
+      errors.name = "Le nom doit contenir au moins 2 caractères.";
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      errors.email = "Adresse email invalide.";
+    if (formData.phone && !/^[+0-9][\d\s()\-]{6,19}$/.test(formData.phone))
+      errors.phone = "Numéro de téléphone invalide (chiffres uniquement).";
+    if (!formData.subject)
+      errors.subject = "Veuillez sélectionner un sujet.";
+    if (!formData.message.trim() || formData.message.trim().length < 10)
+      errors.message = "Le message doit contenir au moins 10 caractères.";
+    return errors;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
     setLoading(true);
     setError("");
-
     try {
       await contactAPI.create(formData);
       setShowSuccessModal(true);
@@ -36,6 +63,13 @@ export default function ContactPage() {
       setLoading(false);
     }
   };
+
+  const inputClass = (field: string) =>
+    `w-full px-4 py-3 bg-white dark:bg-vm-dark border rounded-lg text-gray-900 dark:text-white focus:outline-none transition-colors ${
+      fieldErrors[field]
+        ? "border-red-400 dark:border-red-500"
+        : "border-gray-200 dark:border-gray-800 focus:border-gray-400"
+    }`;
 
   return (
     <div className="min-h-screen bg-white dark:bg-vm-dark pt-32 pb-20">
@@ -87,7 +121,7 @@ export default function ContactPage() {
               href="https://maps.app.goo.gl/DRwvU7ToirdGdrsJA"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute bottom-3 md:bottom-4 right-3 md:right-4 bg-vm-red hover:bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 md:gap-2 shadow-lg transition-colors"
+              className="absolute bottom-3 md:bottom-4 right-3 md:right-4 bg-gray-900 hover:bg-gray-700 text-white px-3 md:px-4 py-2 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 md:gap-2 shadow-lg transition-colors"
             >
               <Icon name="MapPinIcon" size={12} className="md:w-3.5 md:h-3.5" />
               <span className="hidden sm:inline">Ouvrir dans Maps</span>
@@ -104,8 +138,8 @@ export default function ContactPage() {
               
               <div className="space-y-4 md:space-y-6">
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="MapPinIcon" size={20} className="md:w-6 md:h-6 text-vm-red" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                    <Icon name="MapPinIcon" size={20} className="md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-sm md:text-base text-gray-900 dark:text-white font-semibold mb-1">Adresse</h3>
@@ -114,7 +148,7 @@ export default function ContactPage() {
                       href="https://maps.app.goo.gl/DRwvU7ToirdGdrsJA"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-vm-red hover:text-red-600 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
                       <Icon name="ArrowTopRightOnSquareIcon" size={12} />
                       Voir sur la carte
@@ -123,35 +157,35 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="PhoneIcon" size={20} className="md:w-6 md:h-6 text-vm-red" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                    <Icon name="PhoneIcon" size={20} className="md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
                   </div>
                   <div>
                     <h3 className="text-sm md:text-base text-gray-900 dark:text-white font-semibold mb-1">Téléphone</h3>
-                    <a href="tel:+22901213100229" className="block text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-vm-red transition-colors">
+                    <a href="tel:+22901213100229" className="block text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                       (+229) 01 21 31 00 29
                     </a>
-                    <a href="tel:+22901619864606" className="block text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-vm-red transition-colors">
+                    <a href="tel:+22901619864606" className="block text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                       (+229) 01 61 98 64 06
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="GlobeAltIcon" size={20} className="md:w-6 md:h-6 text-vm-red" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                    <Icon name="GlobeAltIcon" size={20} className="md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
                   </div>
                   <div>
                     <h3 className="text-sm md:text-base text-gray-900 dark:text-white font-semibold mb-1">Site web</h3>
-                    <a href="https://www.migmotors.net" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-vm-red transition-colors">
+                    <a href="https://www.migmotors.net" target="_blank" rel="noopener noreferrer" className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                       www.migmotors.net
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center flex-shrink-0">
-                    <Icon name="ClockIcon" size={20} className="md:w-6 md:h-6 text-vm-red" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                    <Icon name="ClockIcon" size={20} className="md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
                   </div>
                   <div>
                     <h3 className="text-sm md:text-base text-gray-900 dark:text-white font-semibold mb-1">Horaires</h3>
@@ -168,19 +202,19 @@ export default function ContactPage() {
               <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">Nos services</h2>
               <ul className="space-y-2 md:space-y-3">
                 <li className="flex items-center gap-2 md:gap-3 text-sm md:text-base text-gray-600 dark:text-gray-400">
-                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-vm-red flex-shrink-0" />
+                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-gray-700 dark:text-gray-300 flex-shrink-0" />
                   Vente de véhicules neufs
                 </li>
                 <li className="flex items-center gap-2 md:gap-3 text-sm md:text-base text-gray-600 dark:text-gray-400">
-                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-vm-red flex-shrink-0" />
+                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-gray-700 dark:text-gray-300 flex-shrink-0" />
                   Service après-vente
                 </li>
                 <li className="flex items-center gap-2 md:gap-3 text-sm md:text-base text-gray-600 dark:text-gray-400">
-                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-vm-red flex-shrink-0" />
+                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-gray-700 dark:text-gray-300 flex-shrink-0" />
                   Prise de rendez-vous
                 </li>
                 <li className="flex items-center gap-2 md:gap-3 text-sm md:text-base text-gray-600 dark:text-gray-400">
-                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-vm-red flex-shrink-0" />
+                  <Icon name="CheckCircleIcon" size={18} variant="solid" className="md:w-5 md:h-5 text-gray-700 dark:text-gray-300 flex-shrink-0" />
                   Demande de devis
                 </li>
               </ul>
@@ -205,10 +239,10 @@ export default function ContactPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-vm-red transition-colors"
+                  className={inputClass("name")}
                   placeholder="Votre nom"
                 />
+                {fieldErrors.name && <p className="mt-1 text-xs text-red-500">{fieldErrors.name}</p>}
               </div>
 
               <div>
@@ -218,10 +252,10 @@ export default function ContactPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-vm-red transition-colors"
+                  className={inputClass("email")}
                   placeholder="votre@email.com"
                 />
+                {fieldErrors.email && <p className="mt-1 text-xs text-red-500">{fieldErrors.email}</p>}
               </div>
 
               <div>
@@ -230,10 +264,11 @@ export default function ContactPage() {
                   type="tel"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-vm-red transition-colors"
+                  onChange={handlePhoneChange}
+                  className={inputClass("phone")}
                   placeholder="+229 XX XX XX XX"
                 />
+                {fieldErrors.phone && <p className="mt-1 text-xs text-red-500">{fieldErrors.phone}</p>}
               </div>
 
               <div>
@@ -242,8 +277,7 @@ export default function ContactPage() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-vm-red transition-colors"
+                  className={inputClass("subject")}
                 >
                   <option value="">Sélectionnez un sujet</option>
                   <option value="information">Demande d'information</option>
@@ -252,6 +286,7 @@ export default function ContactPage() {
                   <option value="sav">Service après-vente</option>
                   <option value="autre">Autre</option>
                 </select>
+                {fieldErrors.subject && <p className="mt-1 text-xs text-red-500">{fieldErrors.subject}</p>}
               </div>
 
               <div>
@@ -260,11 +295,11 @@ export default function ContactPage() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
                   rows={6}
-                  className="w-full px-4 py-3 bg-white dark:bg-vm-dark border border-gray-200 dark:border-gray-800 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-vm-red transition-colors resize-none"
+                  className={inputClass("message") + " resize-none"}
                   placeholder="Votre message..."
                 />
+                {fieldErrors.message && <p className="mt-1 text-xs text-red-500">{fieldErrors.message}</p>}
               </div>
 
               <button

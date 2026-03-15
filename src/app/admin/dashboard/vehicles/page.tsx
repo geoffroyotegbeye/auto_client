@@ -15,14 +15,14 @@ interface Vehicle {
   version?: string;
   price: number;
   year: number;
-  km: number;
   fuel: string;
   transmission: string;
   color?: string;
   doors?: number;
   seats?: number;
-  power?: number;
+  power?: string;
   body_style?: string;
+  location?: string;
   description?: string;
   features?: string;
   status: string;
@@ -30,8 +30,6 @@ interface Vehicle {
   images?: string;
   is_featured?: boolean;
   is_new?: boolean;
-  badge?: string;
-  badge_type?: string;
 }
 
 interface ToastState {
@@ -166,20 +164,20 @@ export default function VehiclesPage() {
       version: vehicle.version || '',
       price: vehicle.price,
       year: vehicle.year,
-      km: vehicle.km,
       fuel: vehicle.fuel,
       transmission: vehicle.transmission,
       color: vehicle.color || '',
       doors: vehicle.doors || 4,
       seats: vehicle.seats || 5,
       power: vehicle.power || '',
+      doors: vehicle.doors || 4,
+      seats: vehicle.seats || 5,
+      location: vehicle.location || '',
       description: vehicle.description || '',
       features: vehicle.features || '',
       status: vehicle.status,
       is_featured: vehicle.is_featured || false,
       is_new: vehicle.is_new || false,
-      badge: vehicle.badge || '',
-      badge_type: vehicle.badge_type || '',
       body_style: vehicle.body_style || '',
     });
     
@@ -217,20 +215,20 @@ export default function VehiclesPage() {
       version: '',
       price: '',
       year: new Date().getFullYear(),
-      km: 0,
       fuel: 'Essence',
       transmission: 'Manuelle',
       color: '',
       doors: 4,
       seats: 5,
       power: '',
+      doors: 4,
+      seats: 5,
+      location: '',
       description: '',
       features: '',
       status: 'available',
       is_featured: false,
       is_new: false,
-      badge: '',
-      badge_type: '',
       body_style: '',
     });
     setExistingImages([]);
@@ -342,7 +340,7 @@ export default function VehiclesPage() {
     try {
       await vehiclesAPI.delete(confirmDelete.vehicleId.toString());
       setConfirmDelete({ show: false, vehicleId: null });
-      loadVehicles();
+      setVehicles(prev => prev.filter(v => v.id !== confirmDelete.vehicleId));
       showToast('Véhicule supprimé avec succès', 'success');
     } catch (error: any) {
       showToast(error.message || 'Erreur lors de la suppression', 'error');
@@ -359,7 +357,8 @@ export default function VehiclesPage() {
 
   // Pagination
   const totalPages = Math.ceil(vehicles.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  const safePage = Math.min(currentPage, totalPages || 1);
+  const startIndex = (safePage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentVehicles = vehicles.slice(startIndex, endIndex);
 
@@ -407,7 +406,7 @@ export default function VehiclesPage() {
                   Prix
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-[#A09A8E]">
-                  Année / KM
+                  Année
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-[#A09A8E]">
                   Statut
@@ -444,9 +443,6 @@ export default function VehiclesPage() {
                   </td>
                   <td className="px-6 py-4">
                     <p className="text-sm text-gray-900 dark:text-[#F5F0E8]">{vehicle.year || 'N/A'}</p>
-                    {vehicle.km > 0 && (
-                      <p className="text-xs text-gray-600 dark:text-[#A09A8E]">{Math.floor(vehicle.km).toLocaleString('fr-FR')} km</p>
-                    )}
                   </td>
                   <td className="px-6 py-4">
                     <span
@@ -605,17 +601,6 @@ export default function VehiclesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Kilométrage</label>
-                  <input
-                    type="number"
-                    value={formData.km}
-                    onChange={(e) => setFormData({ ...formData, km: e.target.value })}
-                    placeholder="0 (véhicule neuf)"
-                    className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]"
-                  />
-                </div>
-
-                <div>
                   <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Carburant *</label>
                   <select
                     value={formData.fuel}
@@ -688,29 +673,52 @@ export default function VehiclesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Badge</label>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Puissance (ch)</label>
                   <input
                     type="text"
-                    value={formData.badge}
-                    onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-                    placeholder="Ex: Nouveau, Promo, -20%"
+                    value={formData.power}
+                    onChange={(e) => setFormData({ ...formData, power: e.target.value })}
+                    placeholder="ex: 163 ch"
                     className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Type de badge</label>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Nombre de portes</label>
                   <select
-                    value={formData.badge_type}
-                    onChange={(e) => setFormData({ ...formData, badge_type: e.target.value })}
+                    value={formData.doors}
+                    onChange={(e) => setFormData({ ...formData, doors: e.target.value })}
                     className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]"
                   >
-                    <option value="">Aucun</option>
-                    <option value="badge-new">Nouveau (Orange)</option>
-                    <option value="badge-promo">Promo (Vert)</option>
-                    <option value="badge-accent">Accent (Bleu)</option>
+                    <option value={2}>2 portes</option>
+                    <option value={3}>3 portes</option>
+                    <option value={4}>4 portes</option>
+                    <option value={5}>5 portes</option>
                   </select>
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Nombre de places</label>
+                  <input
+                    type="number"
+                    value={formData.seats}
+                    onChange={(e) => setFormData({ ...formData, seats: e.target.value })}
+                    min={1} max={9}
+                    className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Localisation</label>
+                  <input
+                    type="text"
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    placeholder="ex: Porto-Novo, Bénin"
+                    className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]"
+                  />
+                </div>
+
               </div>
 
               {/* Checkboxes */}

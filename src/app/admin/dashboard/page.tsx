@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { vehiclesAPI, appointmentsAPI, quotesAPI, contactAPI, reviewsAPI } from '@/services/api';
+import { vehiclesAPI, quotesAPI, contactAPI, reviewsAPI } from '@/services/api';
 import Icon from '@/components/ui/AppIcon';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
     vehicles: 0,
-    appointments: 0,
     quotes: 0,
     contacts: 0,
     reviews: 0,
@@ -21,9 +20,8 @@ export default function DashboardPage() {
 
   const loadStats = async () => {
     try {
-      const [vehicles, appointments, quotes, contacts, reviews] = await Promise.all([
+      const [vehicles, quotes, contacts, reviews] = await Promise.all([
         vehiclesAPI.getAll(),
-        appointmentsAPI.getAll(),
         quotesAPI.getAll(),
         contactAPI.getAll(),
         reviewsAPI.getAll(),
@@ -31,7 +29,6 @@ export default function DashboardPage() {
 
       setStats({
         vehicles: vehicles.vehicles?.length || vehicles.length || 0,
-        appointments: appointments.length || 0,
         quotes: quotes.length || 0,
         contacts: contacts.length || 0,
         reviews: reviews.length || 0,
@@ -51,14 +48,6 @@ export default function DashboardPage() {
       color: 'text-blue-400',
       bg: 'bg-blue-500/10',
       href: '/admin/dashboard/vehicles',
-    },
-    {
-      icon: 'CalendarIcon',
-      label: 'Rendez-vous',
-      value: stats.appointments,
-      color: 'text-green-400',
-      bg: 'bg-green-500/10',
-      href: '/admin/dashboard/appointments',
     },
     {
       icon: 'DocumentTextIcon',
@@ -97,7 +86,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((card) => (
           <Link
             key={card.label}
@@ -130,13 +119,6 @@ export default function DashboardPage() {
           >
             <Icon name="PlusIcon" size={20} className="text-[#E8A020]" />
             <span className="text-sm font-medium text-gray-900 dark:text-[#F5F0E8]">Ajouter un véhicule</span>
-          </Link>
-          <Link
-            href="/admin/dashboard/appointments"
-            className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-[#141414] rounded-lg hover:bg-gray-100 dark:bg-[#222222] transition-colors"
-          >
-            <Icon name="CalendarIcon" size={20} className="text-[#E8A020]" />
-            <span className="text-sm font-medium text-gray-900 dark:text-[#F5F0E8]">Voir les RDV</span>
           </Link>
           <Link
             href="/admin/dashboard/quotes"

@@ -12,8 +12,6 @@ const menuItems = [
   { icon: 'ChartBarIcon', label: 'Dashboard', href: '/admin/dashboard' },
   { icon: 'TruckIcon', label: 'Véhicules', href: '/admin/dashboard/vehicles' },
   { icon: 'TagIcon', label: 'Marques', href: '/admin/dashboard/brands' },
-  { icon: 'PhotoIcon', label: 'Hero', href: '/admin/dashboard/hero' },
-  { icon: 'CalendarIcon', label: 'Rendez-vous', href: '/admin/dashboard/appointments' },
   { icon: 'DocumentTextIcon', label: 'Devis', href: '/admin/dashboard/quotes' },
   { icon: 'ChatBubbleLeftIcon', label: 'Messages', href: '/admin/dashboard/contacts' },
   { icon: 'StarIcon', label: 'Avis clients', href: '/admin/dashboard/reviews' },
@@ -304,7 +302,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Toggle Desktop Only */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 bg-vm-red rounded-full items-center justify-center hover:bg-red-600 transition-colors"
+          className="hidden lg:flex absolute -right-3 top-20 w-6 h-6 bg-vm-red rounded-full items-center justify-center hover:bg-red-600 transition-colors z-50"
         >
           <Icon
             name={sidebarOpen ? 'ChevronLeftIcon' : 'ChevronRightIcon'}
@@ -325,7 +323,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Main Content */}
       <main className="flex-1 w-full pt-16 lg:pt-0">
         {/* Top Bar - Desktop Only */}
-        <header className="hidden lg:block bg-gray-50 dark:bg-vm-dark-card border-b border-gray-200 dark:border-gray-800 px-4 lg:px-8 py-4 sticky top-0 z-40">
+        <header className="hidden lg:block bg-gray-50 dark:bg-vm-dark-card border-b border-gray-200 dark:border-gray-800 px-4 lg:px-8 py-3.5 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white">

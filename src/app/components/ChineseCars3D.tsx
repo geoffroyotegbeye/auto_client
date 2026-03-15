@@ -236,16 +236,14 @@ function Car3DCard({ car, index }: {car: ChineseCar;index: number;}) {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p
-                    className="text-[9px] font-bold uppercase tracking-[0.35em] mb-1"
-                    style={{ color: car.color }}>
-                    
+                    className="text-[9px] font-bold uppercase tracking-[0.35em] mb-1 text-gray-900 dark:text-white">
                     {car.brand} · {car.origin}
                   </p>
                   <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white">{car.name}</h3>
                   <p className="text-[11px] text-gray-500 dark:text-gray-500 mt-0.5 italic">{car.tagline}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-display text-xl font-bold" style={{ color: car.color }}>
+                  <p className="font-display text-xl font-bold text-gray-900 dark:text-white">
                     {car.price}
                   </p>
                   <p className="text-[10px] text-gray-500 dark:text-gray-500 mt-0.5">{car.year}</p>

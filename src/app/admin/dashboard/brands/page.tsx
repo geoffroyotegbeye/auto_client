@@ -14,7 +14,6 @@ interface Brand {
   logo?: string;
   description?: string;
   is_active: boolean;
-  display_order: number;
 }
 
 interface ToastState {
@@ -70,7 +69,6 @@ export default function BrandsPage() {
       name: '',
       description: '',
       is_active: true,
-      display_order: brands.length + 1,
     });
     setSelectedLogo(null);
     setPreviewUrl('');
@@ -84,7 +82,6 @@ export default function BrandsPage() {
       name: brand.name,
       description: brand.description || '',
       is_active: brand.is_active,
-      display_order: brand.display_order,
     });
     setSelectedLogo(null);
     setPreviewUrl('');
@@ -142,7 +139,6 @@ export default function BrandsPage() {
       const formDataToSend = new FormData();
       formDataToSend.append('name', brand.name);
       formDataToSend.append('is_active', (!brand.is_active).toString());
-      formDataToSend.append('display_order', brand.display_order.toString());
       if (brand.description) formDataToSend.append('description', brand.description);
 
       await brandsAPI.update(brand.id.toString(), formDataToSend);
@@ -213,7 +209,6 @@ export default function BrandsPage() {
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${brand.is_active ? 'bg-green-500/10 text-green-400' : 'bg-gray-500/10 text-gray-400'}`}>
                 {brand.is_active ? 'Active' : 'Inactive'}
               </span>
-              <span className="text-xs text-gray-500 dark:text-[#5A5550]">Ordre: {brand.display_order}</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -291,20 +286,13 @@ export default function BrandsPage() {
                 <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} rows={3} className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020] resize-none" />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Ordre d'affichage</label>
-                  <input type="number" value={formData.display_order} onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) })} min="0" className="w-full px-4 py-2 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg text-gray-900 dark:text-[#F5F0E8] focus:outline-none focus:border-[#E8A020]" />
-                </div>
-
-                <div>
+              <div>
                   <label className="block text-sm font-medium text-gray-900 dark:text-[#F5F0E8] mb-2">Statut</label>
                   <label className="flex items-center gap-3 p-3 bg-white dark:bg-[#0D0D0D] border border-gray-200 dark:border-[rgba(245,240,232,0.08)] rounded-lg cursor-pointer hover:border-[#E8A020] transition-colors">
                     <input type="checkbox" checked={formData.is_active} onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })} className="w-5 h-5 rounded border-[rgba(245,240,232,0.2)] bg-white dark:bg-[#0D0D0D] text-[#E8A020] focus:ring-[#E8A020] focus:ring-offset-0" />
                     <span className="text-sm text-gray-900 dark:text-[#F5F0E8]">Marque active</span>
                   </label>
                 </div>
-              </div>
 
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-[rgba(245,240,232,0.08)]">
                 <button type="button" onClick={() => setShowModal(false)} className="px-6 py-2 text-sm text-gray-600 dark:text-[#A09A8E] hover:text-gray-900 dark:text-[#F5F0E8] transition-colors">

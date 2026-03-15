@@ -76,7 +76,7 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
     >
       <Link href={`/products/${vehicle.id}`}>
         <div
-          className="group relative bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-vm-red transition-all duration-300 shadow-md hover:shadow-xl"
+          className="group relative bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 shadow-md hover:shadow-xl"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -107,9 +107,9 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
                 <span
                   className="text-[9px] font-bold uppercase tracking-[0.3em] px-3 py-1.5 rounded-full"
                   style={{
-                    background: "rgba(248,34,0,0.15)",
-                    color: "#f82200",
-                    border: "1px solid rgba(248,34,0,0.3)",
+                    background: "rgba(255,255,255,0.15)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255,255,255,0.4)",
                     backdropFilter: "blur(8px)"
                   }}
                 >
@@ -130,7 +130,7 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
           <div className="p-5">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-vm-red mb-1">
+                <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-gray-900 dark:text-white mb-1">
                   {vehicle.brand}
                 </p>
                 <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white">
@@ -138,7 +138,7 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
                 </h3>
               </div>
               <div className="text-right">
-                <p className="font-display text-xl font-bold text-vm-red">
+                <p className="font-display text-xl font-bold text-gray-900 dark:text-white">
                   {Math.floor(vehicle.price).toLocaleString("fr-FR")} FCFA
                 </p>
                 <p className="text-[10px] text-gray-500 dark:text-gray-500 mt-0.5">{vehicle.year}</p>
@@ -150,10 +150,6 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
               className="flex items-center gap-3 pt-3 mt-3"
               style={{ borderTop: "1px solid rgba(84,86,92,0.15)" }}
             >
-              <div className="flex items-center gap-1.5">
-                <Icon name="ChartBarIcon" size={11} className="text-gray-500 dark:text-gray-500" />
-                <span className="text-[10px] text-gray-600 dark:text-gray-400">{vehicle.km.toLocaleString("fr-FR")} km</span>
-              </div>
               <div className="flex items-center gap-1.5">
                 <Icon name="BoltIcon" size={11} className="text-gray-500 dark:text-gray-500" />
                 <span className="text-[10px] text-gray-600 dark:text-gray-400">{vehicle.fuel}</span>
@@ -254,7 +250,7 @@ export default function RecentListings() {
           </div>
 
           <div className="text-center text-gray-600 dark:text-gray-400 py-12">
-            <Icon name="ArrowPathIcon" size={48} className="text-vm-red animate-spin mx-auto mb-4" />
+            <Icon name="ArrowPathIcon" size={48} className="text-gray-400 animate-spin mx-auto mb-4" />
             Chargement des annonces...
           </div>
         </div>
@@ -319,8 +315,8 @@ export default function RecentListings() {
                   onClick={() => setActiveFilter(f)}
                   className={`px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] rounded-full transition-all ${
                     activeFilter === f
-                      ? "bg-vm-red text-white"
-                      : "bg-gray-100 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-vm-red"
+                      ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
+                      : "bg-gray-100 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-600"
                   }`}
                 >
                   {f}

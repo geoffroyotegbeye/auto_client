@@ -98,7 +98,7 @@ export default function FeaturedVehicles() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px]">
         {/* Large card — premier véhicule */}
         {vehicles[0] && (
-          <div className="bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl lg:row-span-2 reveal-hidden hover:border-vm-red transition-all shadow-sm hover:shadow-lg group">
+          <Link href={`/products/${vehicles[0].id}`} className="bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl lg:row-span-2 reveal-hidden hover:border-gray-400 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-lg group cursor-pointer">
             <div className="h-[340px] lg:h-[calc(100%-120px)] relative overflow-hidden rounded-t-2xl">
               <img
                 src={getImageUrl(vehicles[0].main_image)}
@@ -117,36 +117,27 @@ export default function FeaturedVehicles() {
             <div className="p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-500">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 dark:text-white">
                     {vehicles[0].brand}
                   </p>
                   <p className="font-display text-xl font-bold mt-1 text-gray-900 dark:text-white">{vehicles[0].model}</p>
                   <div className="flex items-center gap-3 mt-2 text-[11px] text-gray-600 dark:text-gray-400">
                     <span>{vehicles[0].year}</span>
                     <span>·</span>
-                    <span>{vehicles[0].km.toLocaleString()} km</span>
-                    <span>·</span>
                     <span>{vehicles[0].fuel}</span>
                   </div>
                 </div>
-                <span className="font-display text-xl font-bold text-vm-red">
+                <span className="font-display text-xl font-bold text-gray-900 dark:text-white">
                   {Math.floor(vehicles[0].price).toLocaleString()} FCFA
                 </span>
               </div>
-              <Link
-                href={`/products/${vehicles[0].id}`}
-                className="mt-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-600 dark:text-gray-400 hover:text-vm-red transition-colors"
-              >
-                Voir détails
-                <Icon name="ArrowRightIcon" size={12} />
-              </Link>
             </div>
-          </div>
+          </Link>
         )}
 
         {/* Medium cards — véhicules 2 et 3 */}
         {vehicles.slice(1, 3).map((v, i) => (
-          <div key={v.id} className={`bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl reveal-hidden delay-${i + 2} hover:border-vm-red transition-all shadow-sm hover:shadow-lg group`}>
+          <Link key={v.id} href={`/products/${v.id}`} className={`bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl reveal-hidden delay-${i + 2} hover:border-gray-400 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-lg group cursor-pointer`}>
             <div className="h-44 relative overflow-hidden rounded-t-2xl">
               <img
                 src={getImageUrl(v.main_image)}
@@ -165,27 +156,25 @@ export default function FeaturedVehicles() {
             <div className="p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-500">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 dark:text-white">
                     {v.brand}
                   </p>
                   <p className="font-display text-lg font-bold mt-1 text-gray-900 dark:text-white">{v.model}</p>
                   <div className="flex items-center gap-2 mt-1 text-[10px] text-gray-600 dark:text-gray-400">
                     <span>{v.year}</span>
-                    <span>·</span>
-                    <span>{v.km.toLocaleString()} km</span>
                   </div>
                 </div>
-                <span className="font-display text-lg font-bold text-vm-red">
+                <span className="font-display text-lg font-bold text-gray-900 dark:text-white">
                   {Math.floor(v.price).toLocaleString()} FCFA
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
 
         {/* Small cards — véhicules 4 et 5 */}
         {vehicles.slice(3, 5).map((v, i) => (
-          <div key={v.id} className={`bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl flex overflow-hidden reveal-hidden delay-${i + 4} hover:border-vm-red transition-all shadow-sm hover:shadow-lg group`}>
+          <Link key={v.id} href={`/products/${v.id}`} className={`bg-white dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl flex overflow-hidden reveal-hidden delay-${i + 4} hover:border-gray-400 dark:hover:border-gray-600 transition-all shadow-sm hover:shadow-lg group cursor-pointer`}>
             <div className="w-40 h-full flex-shrink-0 relative overflow-hidden">
               <img
                 src={getImageUrl(v.main_image)}
@@ -194,7 +183,7 @@ export default function FeaturedVehicles() {
               />
             </div>
             <div className="p-5 flex flex-col justify-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-500">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 dark:text-white">
                 {v.brand}
               </p>
               <p className="font-display text-lg font-bold mt-1 text-gray-900 dark:text-white">{v.model}</p>
@@ -203,11 +192,11 @@ export default function FeaturedVehicles() {
                 <span>·</span>
                 <span>{v.fuel}</span>
               </div>
-              <span className="font-display text-lg font-bold text-vm-red mt-2">
+              <span className="font-display text-lg font-bold text-gray-900 dark:text-white mt-2">
                 {Math.floor(v.price).toLocaleString()} FCFA
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

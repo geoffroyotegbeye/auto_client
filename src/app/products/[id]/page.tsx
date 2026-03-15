@@ -14,7 +14,6 @@ interface Vehicle {
   version: string;
   year: number;
   price: number;
-  km: number;
   fuel: string;
   transmission: string;
   power: string;
@@ -24,15 +23,10 @@ interface Vehicle {
   seats: number;
   description: string;
   main_image: string;
-  image_2?: string;
-  image_3?: string;
-  image_4?: string;
-  image_5?: string;
+  images?: string;
   status: string;
   location: string;
   is_new: boolean;
-  badge?: string;
-  badge_type?: string;
 }
 
 export default function VehicleDetailPage() {
@@ -41,6 +35,15 @@ export default function VehicleDetailPage() {
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string>('');
+  const [zoom, setZoom] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPos({ x, y });
+  };
 
   useEffect(() => {
     const fetchVehicle = async () => {
@@ -64,7 +67,7 @@ export default function VehicleDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-vm-dark pt-32 pb-20 flex items-center justify-center">
-        <Icon name="ArrowPathIcon" size={48} className="text-vm-red animate-spin" />
+        <Icon name="ArrowPathIcon" size={48} className="text-gray-400 animate-spin" />
       </div>
     );
   }
@@ -73,22 +76,23 @@ export default function VehicleDetailPage() {
     return null;
   }
 
-  const images = [
-    vehicle.main_image,
-    vehicle.image_2,
-    vehicle.image_3,
-    vehicle.image_4,
-    vehicle.image_5,
-  ].filter(Boolean) as string[];
+  const images: string[] = (() => {
+    try {
+      const parsed = vehicle.images ? JSON.parse(vehicle.images) : [];
+      return parsed.length > 0 ? parsed : [vehicle.main_image];
+    } catch {
+      return [vehicle.main_image];
+    }
+  })();
 
   return (
     <div className="min-h-screen bg-white dark:bg-vm-dark pt-32 pb-20">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-500 mb-8">
-          <Link href="/" className="hover:text-vm-red transition-colors">Accueil</Link>
+          <Link href="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">Accueil</Link>
           <Icon name="ChevronRightIcon" size={12} />
-          <Link href="/products" className="hover:text-vm-red transition-colors">Véhicules</Link>
+          <Link href="/products" className="hover:text-gray-900 dark:hover:text-white transition-colors">Véhicules</Link>
           <Icon name="ChevronRightIcon" size={12} />
           <span className="text-gray-900 dark:text-white">{vehicle.brand} {vehicle.model}</span>
         </div>
@@ -97,19 +101,18 @@ export default function VehicleDetailPage() {
           {/* Images */}
           <div className="space-y-4">
             {/* Image principale */}
-            <div className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 shadow-lg">
+            <div
+              className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden bg-gray-100 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 shadow-lg cursor-zoom-in"
+              onMouseEnter={() => setZoom(true)}
+              onMouseLeave={() => setZoom(false)}
+              onMouseMove={handleMouseMove}
+            >
               <img
                 src={getImageUrl(selectedImage)}
                 alt={`${vehicle.brand} ${vehicle.model}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-100"
+                style={zoom ? { transform: 'scale(2)', transformOrigin: `${zoomPos.x}% ${zoomPos.y}%` } : {}}
               />
-              {vehicle.badge && (
-                <div className="absolute top-4 left-4 z-10">
-                  <span className={`badge ${vehicle.badge_type || 'badge-new'}`}>
-                    {vehicle.badge}
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* Miniatures */}
@@ -121,7 +124,7 @@ export default function VehicleDetailPage() {
                     onClick={() => setSelectedImage(img)}
                     className={`relative h-24 rounded-lg overflow-hidden border-2 transition-all ${
                       selectedImage === img
-                        ? 'border-vm-red'
+                        ? 'border-gray-900 dark:border-white'
                         : 'border-gray-200 dark:border-gray-800 hover:border-gray-400 dark:hover:border-gray-600'
                     }`}
                   >
@@ -140,7 +143,7 @@ export default function VehicleDetailPage() {
           <div className="space-y-6">
             {/* Header */}
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-vm-red mb-2">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-2">
                 {vehicle.brand}
               </p>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
@@ -154,7 +157,7 @@ export default function VehicleDetailPage() {
             {/* Prix */}
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
               <p className="text-sm text-gray-500 dark:text-gray-500 mb-2">Prix</p>
-              <p className="text-4xl font-bold text-vm-red">
+              <p className="text-4xl font-bold text-gray-900 dark:text-white">
                 {Math.floor(vehicle.price).toLocaleString('fr-FR')} FCFA
               </p>
             </div>
@@ -163,25 +166,16 @@ export default function VehicleDetailPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icon name="CalendarIcon" size={18} className="text-vm-red" />
+                  <Icon name="CalendarIcon" size={18} className="text-gray-500 dark:text-gray-400" />
                   <p className="text-xs text-gray-500 dark:text-gray-500">Année</p>
                 </div>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{vehicle.year}</p>
               </div>
 
-              {vehicle.km > 0 && (
-                <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Icon name="ChartBarIcon" size={18} className="text-vm-red" />
-                    <p className="text-xs text-gray-500 dark:text-gray-500">Kilométrage</p>
-                  </div>
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">{vehicle.km.toLocaleString('fr-FR')} km</p>
-                </div>
-              )}
 
               <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icon name="BoltIcon" size={18} className="text-vm-red" />
+                  <Icon name="BoltIcon" size={18} className="text-gray-500 dark:text-gray-400" />
                   <p className="text-xs text-gray-500 dark:text-gray-500">Carburant</p>
                 </div>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{vehicle.fuel}</p>
@@ -189,7 +183,7 @@ export default function VehicleDetailPage() {
 
               <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icon name="CogIcon" size={18} className="text-vm-red" />
+                  <Icon name="CogIcon" size={18} className="text-gray-500 dark:text-gray-400" />
                   <p className="text-xs text-gray-500 dark:text-gray-500">Transmission</p>
                 </div>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{vehicle.transmission}</p>
@@ -258,10 +252,7 @@ export default function VehicleDetailPage() {
                 <Icon name="ChatBubbleLeftIcon" size={20} />
                 Nous contacter
               </Link>
-              <button className="btn-outline flex-1 justify-center py-4 rounded-lg text-base">
-                <Icon name="HeartIcon" size={20} />
-                Sauvegarder
-              </button>
+
             </div>
           </div>
         </div>
