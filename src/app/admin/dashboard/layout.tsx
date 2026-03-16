@@ -12,6 +12,7 @@ const menuItems = [
   { icon: 'ChartBarIcon', label: 'Dashboard', href: '/admin/dashboard' },
   { icon: 'TruckIcon', label: 'Véhicules', href: '/admin/dashboard/vehicles' },
   { icon: 'TagIcon', label: 'Marques', href: '/admin/dashboard/brands' },
+  { icon: 'PhotoIcon', label: 'Hero', href: '/admin/dashboard/hero' },
   { icon: 'DocumentTextIcon', label: 'Devis', href: '/admin/dashboard/quotes' },
   { icon: 'ChatBubbleLeftIcon', label: 'Messages', href: '/admin/dashboard/contacts' },
   { icon: 'StarIcon', label: 'Avis clients', href: '/admin/dashboard/reviews' },
