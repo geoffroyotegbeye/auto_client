@@ -74,8 +74,8 @@ export default function ProductsInteractive() {
           image: v.main_image,
           alt: `${v.brand} ${v.model}`,
           isNew: v.is_new || false,
-          badge: v.badge || '',
-          badgeType: v.badge_type || 'badge-new',
+          badge: v.is_new ? 'Nouveau' : v.is_featured ? 'Vedette' : v.status === 'reserved' ? 'Réservé' : v.status === 'sold' ? 'Vendu' : '',
+          badgeType: v.is_new ? 'badge-new' : v.is_featured ? 'badge-featured' : v.status === 'reserved' ? 'badge-reserved' : v.status === 'sold' ? 'badge-sold' : '',
           daysAgo: 0
         }));
         setVehicles(mapped);

@@ -386,6 +386,31 @@ body {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.badge-new {
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+}
+
+.badge-featured {
+  background: #d97706;
+  color: #ffffff;
+  border: none;
+}
+
+.badge-reserved {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+}
+
+.badge-sold {
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
 }
 
 .badge-accent {
@@ -400,16 +425,10 @@ body {
   color: var(--text-primary);
 }
 
-.badge-new {
-  background: transparent;
-  border: 1px solid var(--border-hover);
-  color: var(--text-primary);
-}
-
 .badge-promo {
-  background: transparent;
-  border: 1px solid var(--border-hover);
-  color: var(--text-primary);
+  background: #7c3aed;
+  color: #ffffff;
+  border: none;
 }
 
 /* ─── DIVIDER ─── */
