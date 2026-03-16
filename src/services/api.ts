@@ -19,6 +19,14 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   });
 
   if (!response.ok) {
+    // Token expiré ou invalide → rediriger vers login
+    if (response.status === 401 || response.status === 403) {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/admin/login';
+      }
+    }
     const error = await response.json().catch(() => ({ error: 'Une erreur est survenue' }));
     throw new Error(error.error || error.message || 'Erreur réseau');
   }
