@@ -37,15 +37,19 @@ export default function BrandsMarquee() {
 
   // Doubler les marques pour un défilement infini fluide
   const doubled = [...brands, ...brands];
+  // Espacement uniforme : plus il y a de marques, moins on a besoin d'espace
+  const gap = Math.max(40, Math.min(80, 600 / brands.length));
+  // Vitesse proportionnelle au nombre de marques
+  const duration = Math.max(12, brands.length * 2.5);
 
   return (
     <section className="py-12 overflow-hidden border-y border-gray-200 dark:border-gray-800 bg-white dark:bg-vm-dark">
       <div className="marquee-track">
-        <div className="marquee-inner">
+        <div className="marquee-inner" style={{ gap: `${gap}px`, animationDuration: `${duration}s` }}>
           {doubled?.map((brand, i) => (
             <div
               key={`${brand.id}-${i}`}
-              className="inline-flex items-center justify-center px-8 hover:scale-110 transition-transform cursor-default"
+              className="inline-flex items-center justify-center hover:scale-110 transition-transform cursor-default flex-shrink-0"
             >
               <div className="relative w-24 h-12 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100">
                 <AppImage

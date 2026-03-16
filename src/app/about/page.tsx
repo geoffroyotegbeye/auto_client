@@ -3,8 +3,8 @@ import Icon from "@/components/ui/AppIcon";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "À Propos — MIG Motors Bénin",
-  description: "Découvrez l'histoire de MIG Motors Bénin, concessionnaire exclusif des plus grandes marques automobiles depuis 2013.",
+  title: "À Propos — MIG Motors Sa",
+  description: "Découvrez l'histoire de MIG Motors Sa, concessionnaire exclusif des plus grandes marques automobiles depuis 2013.",
 };
 
 const brands = [
@@ -16,7 +16,7 @@ const brands = [
 ];
 
 const countries = [
-  { name: "Bénin", flag: "🇧🇯" },
+  { name: "Sa", flag: "🇧🇯" },
   { name: "Togo", flag: "🇹🇬" },
   { name: "Niger", flag: "🇳🇪" },
   { name: "Tchad", flag: "🇹🇩" },
@@ -65,7 +65,7 @@ export default function AboutPage() {
             À Propos
           </p>
           <h1 className="section-title text-gray-900 dark:text-white mb-4">
-            MIG Motors Bénin
+            MIG Motors Sa
           </h1>
           <p className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto">
             Votre partenaire automobile de confiance depuis 2013
@@ -90,7 +90,7 @@ export default function AboutPage() {
                   <strong className="text-gray-900 dark:text-white">MIG MOTORS BENIN</strong> a été créée le <strong className="text-gray-900 dark:text-white">25 Novembre 2013</strong> avec un capital social de <strong className="text-gray-900 dark:text-white">100.000.000 FCFA</strong>. Elle est située à la zone résidentielle Zongo, Ilots 572.
                 </p>
                 <p>
-                  L'arrivée au Bénin de <strong className="text-gray-900 dark:text-white">KIA</strong>, constructeur automobile sud-coréen, est la concrétisation d'un rêve majeur de la population qui consiste en l'achat de véhicules neufs et résistants à moindre coût.
+                  L'arrivée à Sa de <strong className="text-gray-900 dark:text-white">KIA</strong>, constructeur automobile sud-coréen, est la concrétisation d'un rêve majeur de la population qui consiste en l'achat de véhicules neufs et résistants à moindre coût.
                 </p>
                 <p>
                   Elle dispose également du service <strong className="text-gray-900 dark:text-white">AUTORENT</strong> qui s'occupe de la location de véhicules courte durée avec possibilité de leasing.
@@ -167,7 +167,7 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-bold">Service Après-Vente</h2>
               </div>
               <p className="leading-relaxed">
-                MIG MOTORS Bénin offre une <strong>large possibilité de service après-vente</strong> qui s'appuie sur des <strong>équipements performants</strong> et un <strong>personnel qualifié et formé régulièrement</strong> par les constructeurs.
+                MIG MOTORS Sa offre une <strong>large possibilité de service après-vente</strong> qui s'appuie sur des <strong>équipements performants</strong> et un <strong>personnel qualifié et formé régulièrement</strong> par les constructeurs.
               </p>
             </div>
           </div>
