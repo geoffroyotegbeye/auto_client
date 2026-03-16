@@ -105,18 +105,8 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
             
             {/* Badges */}
             <div className="absolute top-4 left-4 flex gap-2">
-              {(vehicle.is_new || daysAgo <= 7) && (
-                <span className="badge badge-new">Nouveau</span>
-              )}
-              {!vehicle.is_new && vehicle.is_featured && (
-                <span className="badge badge-featured">Vedette</span>
-              )}
-              {vehicle.status === 'reserved' && (
-                <span className="badge badge-reserved">Réservé</span>
-              )}
-              {vehicle.status === 'sold' && (
-                <span className="badge badge-sold">Vendu</span>
-              )}
+              {vehicle.is_new && <span className="badge badge-new">Nouveau</span>}
+              {vehicle.is_featured && <span className="badge badge-featured">Vedette</span>}
             </div>
             
             {/* Days ago */}

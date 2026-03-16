@@ -25,8 +25,6 @@ interface Vehicle {
 function getBadge(v: Vehicle): { label: string; cls: string } | null {
   if (v.is_new) return { label: 'Nouveau', cls: 'badge-new' };
   if (v.is_featured) return { label: 'Vedette', cls: 'badge-featured' };
-  if (v.status === 'reserved') return { label: 'Réservé', cls: 'badge-reserved' };
-  if (v.status === 'sold') return { label: 'Vendu', cls: 'badge-sold' };
   return null;
 }
 
