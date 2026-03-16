@@ -73,9 +73,9 @@ export default function ProductsInteractive() {
           location: v.location || 'Zongo, Bénin',
           image: v.main_image,
           alt: `${v.brand} ${v.model}`,
-          isNew: v.is_new || false,
-          badge: v.is_new ? 'Nouveau' : v.is_featured ? 'Vedette' : '',
-          badgeType: v.is_new ? 'badge-new' : v.is_featured ? 'badge-featured' : '',
+          isNew: v.is_new === 1 || v.is_new === true,
+          badge: (v.is_new === 1 || v.is_new === true) ? 'Nouveau' : (v.is_featured === 1 || v.is_featured === true) ? 'Vedette' : '',
+          badgeType: (v.is_new === 1 || v.is_new === true) ? 'badge-new' : (v.is_featured === 1 || v.is_featured === true) ? 'badge-featured' : '',
           daysAgo: 0
         }));
         setVehicles(mapped);

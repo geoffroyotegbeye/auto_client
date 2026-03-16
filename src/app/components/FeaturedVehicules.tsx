@@ -23,8 +23,8 @@ interface Vehicle {
 }
 
 function getBadge(v: Vehicle): { label: string; cls: string } | null {
-  if (v.is_new) return { label: 'Nouveau', cls: 'badge-new' };
-  if (v.is_featured) return { label: 'Vedette', cls: 'badge-featured' };
+  if (v.is_new === 1 || v.is_new === true) return { label: 'Nouveau', cls: 'badge-new' };
+  if (v.is_featured === 1 || v.is_featured === true) return { label: 'Vedette', cls: 'badge-featured' };
   return null;
 }
 
