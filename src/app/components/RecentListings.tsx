@@ -17,6 +17,8 @@ interface Vehicle {
   transmission: string;
   main_image: string;
   status: string;
+  is_new: boolean;
+  is_featured: boolean;
   created_at: string;
 }
 
@@ -103,18 +105,17 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
             
             {/* Badges */}
             <div className="absolute top-4 left-4 flex gap-2">
-              {daysAgo <= 7 && (
-                <span
-                  className="text-[9px] font-bold uppercase tracking-[0.3em] px-3 py-1.5 rounded-full"
-                  style={{
-                    background: "rgba(255,255,255,0.15)",
-                    color: "#ffffff",
-                    border: "1px solid rgba(255,255,255,0.4)",
-                    backdropFilter: "blur(8px)"
-                  }}
-                >
-                  Nouveau
-                </span>
+              {(vehicle.is_new || daysAgo <= 7) && (
+                <span className="badge badge-new">Nouveau</span>
+              )}
+              {!vehicle.is_new && vehicle.is_featured && (
+                <span className="badge badge-featured">Vedette</span>
+              )}
+              {vehicle.status === 'reserved' && (
+                <span className="badge badge-reserved">Réservé</span>
+              )}
+              {vehicle.status === 'sold' && (
+                <span className="badge badge-sold">Vendu</span>
               )}
             </div>
             

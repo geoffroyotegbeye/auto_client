@@ -18,9 +18,16 @@ interface Vehicle {
   body_style: string;
   main_image: string;
   status: string;
+  is_new: boolean;
   is_featured: boolean;
-  badge?: string;
-  badge_type?: string;
+}
+
+function getBadge(v: Vehicle): { label: string; cls: string } | null {
+  if (v.is_new) return { label: 'Nouveau', cls: 'badge-new' };
+  if (v.is_featured) return { label: 'Vedette', cls: 'badge-featured' };
+  if (v.status === 'reserved') return { label: 'Réservé', cls: 'badge-reserved' };
+  if (v.status === 'sold') return { label: 'Vendu', cls: 'badge-sold' };
+  return null;
 }
 
 export default function FeaturedVehicles() {
@@ -106,13 +113,11 @@ export default function FeaturedVehicles() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-vm-dark/50 to-transparent" />
-              {vehicles[0].badge && (
+              {(() => { const b = getBadge(vehicles[0]); return b ? (
                 <div className="absolute top-4 left-4 z-10">
-                  <span className={`badge ${vehicles[0].badge_type || 'badge-new'}`}>
-                    {vehicles[0].badge}
-                  </span>
+                  <span className={`badge ${b.cls}`}>{b.label}</span>
                 </div>
-              )}
+              ) : null; })()}
             </div>
             <div className="p-5">
               <div className="flex items-start justify-between">
@@ -145,13 +150,11 @@ export default function FeaturedVehicles() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-vm-dark/50 to-transparent" />
-              {v.badge && (
+              {(() => { const b = getBadge(v); return b ? (
                 <div className="absolute top-4 left-4 z-10">
-                  <span className={`badge ${v.badge_type || 'badge-new'}`}>
-                    {v.badge}
-                  </span>
+                  <span className={`badge ${b.cls}`}>{b.label}</span>
                 </div>
-              )}
+              ) : null; })()} 
             </div>
             <div className="p-5">
               <div className="flex items-start justify-between">
