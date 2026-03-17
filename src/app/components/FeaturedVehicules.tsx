@@ -130,9 +130,12 @@ export default function FeaturedVehicles() {
                     <span>{vehicles[0].fuel}</span>
                   </div>
                 </div>
-                <span className="font-display text-xl font-bold text-gray-900 dark:text-white">
-                  {Math.floor(vehicles[0].price).toLocaleString()} FCFA
-                </span>
+                <div className="text-right">
+                  <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
+                  <span className="font-display text-xl font-bold text-gray-900 dark:text-white">
+                    {Math.floor(vehicles[0].price).toLocaleString()} FCFA
+                  </span>
+                </div>
               </div>
             </div>
           </Link>
@@ -165,9 +168,12 @@ export default function FeaturedVehicles() {
                     <span>{v.year}</span>
                   </div>
                 </div>
-                <span className="font-display text-lg font-bold text-gray-900 dark:text-white">
-                  {Math.floor(v.price).toLocaleString()} FCFA
-                </span>
+                <div className="text-right">
+                  <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
+                  <span className="font-display text-lg font-bold text-gray-900 dark:text-white">
+                    {Math.floor(v.price).toLocaleString()} FCFA
+                  </span>
+                </div>
               </div>
             </div>
           </Link>
@@ -193,9 +199,12 @@ export default function FeaturedVehicles() {
                 <span>·</span>
                 <span>{v.fuel}</span>
               </div>
-              <span className="font-display text-lg font-bold text-gray-900 dark:text-white mt-2">
-                {Math.floor(v.price).toLocaleString()} FCFA
-              </span>
+              <div>
+                <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
+                <span className="font-display text-lg font-bold text-gray-900 dark:text-white mt-1">
+                  {Math.floor(v.price).toLocaleString()} FCFA
+                </span>
+              </div>
             </div>
           </Link>
         ))}

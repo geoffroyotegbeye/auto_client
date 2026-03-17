@@ -62,9 +62,12 @@ export default function VehicleCard({ vehicle: v, view }: Props) {
                   <span className="text-gray-600 dark:text-gray-400 font-light italic text-base">{v.version}</span>
                 </h3>
               </div>
-              <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
-                {v.price.toLocaleString("fr-FR")} FCFA
-              </span>
+              <div className="text-right flex-shrink-0 ml-2">
+                <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
+                <span className="font-display text-2xl font-bold text-gray-900 dark:text-white">
+                  {v.price.toLocaleString("fr-FR")} FCFA
+                </span>
+              </div>
             </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-gray-600 dark:text-gray-400 mt-3">
               <span className="flex items-center gap-1.5"><Icon name="CalendarIcon" size={13} />{v.year}</span>
@@ -110,9 +113,12 @@ export default function VehicleCard({ vehicle: v, view }: Props) {
             <h3 className="font-display text-lg font-bold mt-0.5 text-gray-900 dark:text-white">{v.model}</h3>
             <p className="text-[12px] text-gray-600 dark:text-gray-400 italic">{v.version}</p>
           </div>
-          <span className="font-display text-lg font-bold text-gray-900 dark:text-white flex-shrink-0 ml-2">
-            {v.price.toLocaleString("fr-FR")} FCFA
-          </span>
+          <div className="text-right flex-shrink-0 ml-2">
+            <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
+            <span className="font-display text-lg font-bold text-gray-900 dark:text-white">
+              {v.price.toLocaleString("fr-FR")} FCFA
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-600 dark:text-gray-400 my-3">

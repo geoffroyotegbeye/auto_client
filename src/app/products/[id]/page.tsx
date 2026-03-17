@@ -156,7 +156,7 @@ export default function VehicleDetailPage() {
 
             {/* Prix */}
             <div className="bg-gray-50 dark:bg-vm-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
-              <p className="text-sm text-gray-500 dark:text-gray-500 mb-2">Prix</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500 mb-1">À partir de :</p>
               <p className="text-4xl font-bold text-gray-900 dark:text-white">
                 {Math.floor(vehicle.price).toLocaleString('fr-FR')} FCFA
               </p>

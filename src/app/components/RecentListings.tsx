@@ -129,6 +129,7 @@ function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index: number }) {
                 </h3>
               </div>
               <div className="text-right">
+                <p className="text-[11px] text-gray-500 dark:text-gray-500 font-medium">À partir de</p>
                 <p className="font-display text-xl font-bold text-gray-900 dark:text-white">
                   {Math.floor(vehicle.price).toLocaleString("fr-FR")} FCFA
                 </p>
