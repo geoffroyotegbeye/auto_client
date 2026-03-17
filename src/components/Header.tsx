@@ -128,25 +128,23 @@ export default function Header() {
         </nav>
 
         {/* Toggle Mobile */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <ThemeToggle />
           
-          {/* Bouton recherche - Desktop: avec texte, Mobile: icône seulement */}
           <Link 
             href="/products" 
-            className="btn-primary text-[11px] py-2 rounded-full lg:px-6 px-2.5"
+            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             aria-label="Rechercher"
           >
-            <Icon name="MagnifyingGlassIcon" size={14} />
-            <span className="hidden lg:inline">Rechercher</span>
+            <Icon name="MagnifyingGlassIcon" size={22} />
           </Link>
           
           <button
-            className="lg:hidden p-2 text-gray-600 dark:text-[#A09A8E] hover:text-gray-900 dark:hover:text-[#F5F0E8] transition-colors z-[60]"
+            className="lg:hidden p-1 text-gray-600 dark:text-[#A09A8E] hover:text-gray-900 dark:hover:text-[#F5F0E8] transition-colors z-[60]"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
-            <Icon name={mobileOpen ? "XMarkIcon" : "Bars3Icon"} size={28} />
+            <Icon name={mobileOpen ? "XMarkIcon" : "Bars3Icon"} size={26} />
           </button>
         </div>
       </div>
